@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
   const fetchData = async () => {
     const request_in_progress = await redis.get('indexRoute');
     if (request_in_progress == null) {
-      await redis.set('indexRoute', "true");
+      await redis.setex('indexRoute', 30, "true");
       let data;
       const redisData = await redis.get("result");
       if (redisData == null) {
